@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - First Set of Symptoms</title>
+    <link rel="stylesheet" href="{% static 'chat_app/chatbot.css' %}">
+    <style>
+        /* Example CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: skyblue; /* Set sky-blue background color */
+            padding: 20px;
+            margin: 0;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const chatbotUrl = "{% url 'chatbot' %}";
+
+            $('#response-form').on('click', '.symptom-btn', function() {
+                var response = $(this).data('response');
+                
+                if (response === 'mental') {
+                    window.location.href = "{% url 'mental_test' %}";
+                    return;  // Stop further execution if redirecting
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: chatbotUrl,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                        'response': response
+                    },
+                    success: function(response) {
+                        if (response.redirect_url === 'good_results') {
+                            window.location.href = "{% url 'good_results' %}";
+                        } else if (response.redirect_url === 'ok_results') {
+                            window.location.href = "{% url 'ok_results' %}";
+                        } else if (response.redirect_url === 'lonely_results') {
+                            window.location.href = "{% url 'lonely_results' %}";
+                        } else {
+                            console.error('Invalid response:', response);
+                            $('#error-message').text('An error occurred. Please try again later.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        $('#error-message').text('An error occurred. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box">
+            <h1 class="chat-title" id="chat-title">WellBot</h1>
+            <div class="inner-box">
+                <div id="chat-messages">
+                    <h2>Hello, how are you feeling today?</h2>
+                    <form id="response-form">
+                        {% csrf_token %}
+                        <button type="button" class="symptom-btn" data-response="good">Good</button>
+                        <button type="button" class="symptom-btn" data-response="ok">Ok</button>
+                        <button type="button" class="symptom-btn" data-response="lonely">Feeling Lonely</button>
+                        <button type="button" class="symptom-btn" data-response="mental">Mental Test</button>
+                    </form>
+                    <div id="error-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

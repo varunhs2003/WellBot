@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assessment - Question 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #007bff;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mental Health Assessment - Question 1</h1>
+        <form id="mental-form" action="{% url 'mental_test_submit' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="q1">How often do you feel stressed?</label><br>
+                <input type="radio" id="q1-1" name="q1" value="rarely">
+                <label for="q1-1">Rarely</label>
+                <input type="radio" id="q1-2" name="q1" value="sometimes">
+                <label for="q1-2">Sometimes</label>
+                <input type="radio" id="q1-3" name="q1" value="often">
+                <label for="q1-3">Often</label>
+                <input type="radio" id="q1-4" name="q1" value="always">
+                <label for="q1-4">Always</label>
+            </div>
+            <div class="form-group">
+                <label for="q2">Do you find it hard to concentrate or make decisions?</label><br>
+                <input type="radio" id="q2-1" name="q2" value="yes">
+                <label for="q2-1">Yes</label>
+                <input type="radio" id="q2-2" name="q2" value="no">
+                <label for="q2-2">No</label>
+            </div>
+            <div class="form-group">
+                <label for="q3">Do you frequently experience intense fear or panic attacks?</label><br>
+                <input type="radio" id="q3-1" name="q3" value="yes">
+                <label for="q3-1">Yes</label>
+                <input type="radio" id="q3-2" name="q3" value="no">
+                <label for="q3-2">No</label>
+            </div>
+            <div class="form-group">
+                <label for="q4">Do you often feel excessively worried or anxious?</label><br>
+                <input type="radio" id="q4-1" name="q4" value="yes">
+                <label for="q4-1">Yes</label>
+                <input type="radio" id="q4-2" name="q4" value="no">
+                <label for="q4-2">No</label>
+            </div>
+            <div class="form-group">
+                <label for="q5">Do you sometimes hear or see things that others don't?</label><br>
+                <input type="radio" id="q5-1" name="q5" value="yes">
+                <label for="q5-1">Yes</label>
+                <input type="radio" id="q5-2" name="q5" value="no">
+                <label for="q5-2">No</label>
+            </div>
+            <div class="form-group">
+                <label for="q6">Have you experienced trauma or a disturbing event that you can't stop thinking about?</label><br>
+                <input type="radio" id="q6-1" name="q6" value="yes">
+                <label for="q6-1">Yes</label>
+                <input type="radio" id="q6-2" name="q6" value="no">
+                <label for="q6-2">No</label>
+            </div>
+            <div class="form-group">
+                <label for="q7">Do you have thoughts of harming yourself or others?</label><br>
+                <input type="radio" id="q7-1" name="q7" value="yes">
+                <label for="q7-1">Yes</label>
+                <input type="radio" id="q7-2" name="q7" value="no">
+                <label for="q7-2">No</label>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+        <a href="{% url 'chatbot' %}" class="back-link">Back to Chatbot</a>
+    </div>
+</body>
+</html>

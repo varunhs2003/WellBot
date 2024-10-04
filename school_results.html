@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        /* Example CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: skyblue; /* Set sky-blue background color */
+            padding: 20px;
+        }
+        .results-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 48px; /* Increased font size to make it big */
+            margin-bottom: 20px;
+            color: #007bff; /* Blue color for the heading */
+            text-align: center; /* Center align the heading */
+        }
+        p {
+            font-size: 18px; /* Adjusted font size for the paragraph */
+            color: #333; /* Dark color for the text */
+            text-align: center; /* Center align the paragraph */
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center; /* Center align the link */
+            display: block; /* Make the link a block element for better spacing */
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <h1>WellBot</h1>
+        <p>Its normal to be stressed about school and College.<br>If you are facing issues with friends, try to handle it ar learn to ignore.<br> Teachers can also be determinant factor to your mood.<br> Stay calm and handle it. </p>
+        <!-- Back to Chatbot link -->
+        <a href="{% url 'chatbot' %}">Back to Chatbot</a>
+    </div>
+</body>
+</html>

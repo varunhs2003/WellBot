@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        /* Example CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: skyblue; /* Set sky-blue background color */
+            padding: 20px;
+            margin: 0;
+        }
+        .results-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 48px; /* Increased font size to make it big */
+            margin-bottom: 20px;
+            color: #007bff; /* Blue color for the heading */
+            text-align: center; /* Center align the heading */
+        }
+        p {
+            font-size: 18px; /* Adjusted font size for the paragraph */
+            color: #333; /* Dark color for the text */
+            text-align: center; /* Center align the paragraph */
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center; /* Center align the link */
+            display: block; /* Make the link a block element for better spacing */
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <h1>WellBot</h1>
+        <p>Nice! Happy to hear that. Hope you're finding lots of reasons to smile.</p>
+        <!-- Additional message or content specific to the "Good" response if needed -->
+        
+        <!-- Back to Chatbot link -->
+        <a href="{% url 'chatbot' %}">Back to Chatbot</a>
+    </div>
+
+    <!-- Add JavaScript for handling response buttons -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const chatbotUrl = "{% url 'chatbot' %}";
+            
+            $('#response-form').on('click', '.symptom-btn', function() {
+                var response = $(this).data('response');
+                
+                $.ajax({
+                    type: 'POST',
+                    url: chatbotUrl,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                        'response': response
+                    },
+                    success: function(response) {
+                        if (response.redirect_url === 'good_results') {
+                            window.location.href = "{% url 'good_results' %}";
+                        } else if (response.redirect_url === 'ok_results') {
+                            window.location.href = "{% url 'ok_results' %}";
+                        } else if (response.redirect_url === 'lonely_results') {
+                            window.location.href = "{% url 'lonely_results' %}";
+                        } else {
+                            console.error('Invalid response:', response);
+                            $('#error-message').text('An error occurred. Please try again later.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        $('#error-message').text('An error occurred. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
